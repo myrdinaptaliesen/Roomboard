@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Intranet Arinfo{% endblock %}</title>
+        <!--CDN Bootstrap-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        
+        <!--Bootswatch-->
+        <link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.css">
+        
+        <!--Icones Bootstrap-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+        <!--Feuille de style-->
+        <link rel="stylesheet" href="{{ asset('style/style.css') }}" rel="stylesheet" />
+
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          
+            <div class="collapse navbar-collapse" id="navbarColor02">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{ path('home') }}">Accueil
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ path('formation_index') }}" role="button" aria-haspopup="true" aria-expanded="false">Formations</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('formation_index') }}">Accueil</a>
+                      <a class="dropdown-item" href="{{ path('formation_new') }}">Ajouter +</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Formateurs</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="">Accueil</a>
+                      <a class="dropdown-item" href="{{ path('app_register') }}">Ajouter +</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ path('salle_index') }}" role="button" aria-haspopup="true" aria-expanded="false">Salles</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('salle_index') }}">Accueil</a>
+                      <a class="dropdown-item" href="{{ path('salle_new') }}">Ajouter +</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ path('stagiaire_index') }}" role="button" aria-haspopup="true" aria-expanded="false">Stagiaires</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('stagiaire_index') }}">Accueil</a>
+                      <a class="dropdown-item" href="{{ path('stagiaire_new') }}">Ajouter +</a>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{{ path('type_index') }}" role="button" aria-haspopup="true" aria-expanded="false">Type Formation</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('type_index') }}">Accueil</a>
+                      <a class="dropdown-item" href="{{ path('type_new') }}">Ajouter +</a>
+                    </div>
+                  </li>
+
+              </ul>
+
+                <button class="btn btn-secondary my-2 my-sm-0" type="">Se Déconnecter</button>
+
+            </div>
+          </nav>
+          <div class="container">
+            {% block body %}{% endblock %}
+          </div>
+        
+        
+        <!--jQuery-->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <!--JS Bootstrap-->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>
