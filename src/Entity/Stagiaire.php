@@ -27,6 +27,16 @@ class Stagiaire
      */
     private $prenomStagiaire;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="stagiaires")
+     */
+    private $Place;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="stagiaires")
+     */
+    private $Formation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,30 @@ class Stagiaire
     public function setPrenomStagiaire(string $prenomStagiaire): self
     {
         $this->prenomStagiaire = $prenomStagiaire;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->Place;
+    }
+
+    public function setPlace(?Place $Place): self
+    {
+        $this->Place = $Place;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->Formation;
+    }
+
+    public function setFormation(?Formation $Formation): self
+    {
+        $this->Formation = $Formation;
 
         return $this;
     }

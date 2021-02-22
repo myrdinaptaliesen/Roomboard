@@ -39,6 +39,11 @@ class Utilisateur implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Centre::class, inversedBy="utilisateurs")
+     */
+    private $Centre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,5 +127,17 @@ class Utilisateur implements UserInterface
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
+    }
+
+    public function getCentre(): ?Centre
+    {
+        return $this->Centre;
+    }
+
+    public function setCentre(?Centre $Centre): self
+    {
+        $this->Centre = $Centre;
+
+        return $this;
     }
 }
