@@ -12,7 +12,7 @@
         <table class="table align-middle" style="background-color: {{ formation.couleurFormation }};">
             <tr>
                 <td>{{ formation.intituleFormation }}</th>
-                <td>{type formation}</th>
+                <td>{{ formation.type.nomType}}</th>
                 <td><a class="btn btn-outline-dark" href="{{ path('formation_edit', {'id': formation.id}) }}"><i
                             class="bi bi-brush"></i></a></th>
             </tr>

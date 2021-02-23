@@ -3,9 +3,9 @@
 {% block title %}New Stagiaire{% endblock %}
 
 {% block body %}
-    <h1>Create new Stagiaire</h1>
+    <h1>Nouveau Stagiaire</h1>
 
     {{ include('stagiaire/_form.html.twig') }}
 
-    <a href="{{ path('stagiaire_index') }}">back to list</a>
+    <a class="btn-outline-dark btn" href="{{ path('stagiaire_index') }}">Retour</a>
 {% endblock %}

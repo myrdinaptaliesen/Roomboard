@@ -33,7 +33,7 @@ class Creneau
     private $Formation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="creneaus")
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="creneaux")
      */
     private $Place;
 

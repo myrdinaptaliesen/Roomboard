@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>NomStagiaire</th>
                 <th>PrenomStagiaire</th>
+                <th>NomStagiaire</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,8 +18,8 @@
         {% for stagiaire in stagiaires %}
             <tr>
                 <td>{{ stagiaire.id }}</td>
-                <td>{{ stagiaire.nomStagiaire }}</td>
                 <td>{{ stagiaire.prenomStagiaire }}</td>
+                <td>{{ stagiaire.nomStagiaire }}</td>
                 <td>
                     <a href="{{ path('stagiaire_show', {'id': stagiaire.id}) }}">show</a>
                     <a href="{{ path('stagiaire_edit', {'id': stagiaire.id}) }}">edit</a>
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('stagiaire_new') }}">Create new</a>
+    <a class="btn-outline-dark btn" href="{{ path('stagiaire_new') }}">Nouveau Stagiaire</a>
 {% endblock %}
