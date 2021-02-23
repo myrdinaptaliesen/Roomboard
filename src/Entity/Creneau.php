@@ -27,6 +27,16 @@ class Creneau
      */
     private $finCreneau;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="creneaux")
+     */
+    private $Formation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="creneaux")
+     */
+    private $Place;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,30 @@ class Creneau
     public function setFinCreneau(\DateTimeInterface $finCreneau): self
     {
         $this->finCreneau = $finCreneau;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->Formation;
+    }
+
+    public function setFormation(?Formation $Formation): self
+    {
+        $this->Formation = $Formation;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->Place;
+    }
+
+    public function setPlace(?Place $Place): self
+    {
+        $this->Place = $Place;
 
         return $this;
     }
