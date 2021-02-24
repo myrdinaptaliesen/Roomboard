@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PlaceRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Salle;
+use App\Entity\Creneau;
+use App\Entity\Stagiaire;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PlaceRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=PlaceRepository::class)

@@ -1,34 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Salle index{% endblock %}
+{% block title %}Salles - Intrarinfo{% endblock %}
 
 {% block body %}
-    <h1>Salle index</h1>
+    <h1>Salles</h1>
 
 
     <table class="table">
-        <thead>
+        <thead class="thead-light">
             <tr>
-                <th>Id</th>
-                <th>NomSalle</th>
-                <th>NbPlaces</th>
-                <th>actions</th>
+                <th>Nom de la Salle</th>
+                <th>Nombre de places maximum</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for salle in salles %}
             <tr>
-                <td>{{ salle.id }}</td>
-                <td>{{ salle.nomSalle }}</td>
-                <td>{{ salle.nbPlaces }}</td>
+                <td><span class="MeValeur">{{ salle.nomSalle }}</span></td>
+
                 <td>
-                    <a href="{{ path('salle_show', {'id': salle.id}) }}">show</a>
-                    <a href="{{ path('salle_edit', {'id': salle.id}) }}">edit</a>
+                    {% set count = 0 %}
+
+                        {% for place in places %}
+                            {% if place.id != 0 and place.salle.id == salle.id %}
+                                {% set count = count + 1 %}
+                            {% endif %}
+                        {% endfor %}
+
+                    <span class="MeValeur">{{ count }}/{{ salle.nbPlaces }}</span>
                 </td>
+
+                <td>
+                    <a class="lienPlace btn" href="{{ path('salle_edit', {'id': salle.id}) }}">Modifier</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="affichagePlaces">
+                        <p>Places : </p>
+                        {% for place in places %}
+                            {% if place.salle.id == salle.id  %}
+                                <a href="{{ path('place_edit', {'id': place.id}) }}" class="lienPlace btn">{{ place.nomPlace }}</a>                        
+                            {% endif %}    
+                        {% endfor %}
+                        <a href="{{ path('place_new', {'salle': salle.id}) }}" class="lienPlace btn">+</a>
+                    </div>
+                </td>
+
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="3">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

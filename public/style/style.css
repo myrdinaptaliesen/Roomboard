@@ -15,6 +15,10 @@ table:hover {
           box-shadow: 0px 3px 3px grey;
 }
 
+td {
+  vertical-align: middle !important;
+}
+
 .large {
   margin: 20px;
   width: 100%;
@@ -22,5 +26,36 @@ table:hover {
 
 .btn {
   font-size: 1rem;
+}
+
+.MeValeur {
+  font-size: 1.1rem;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  padding: 12px;
+}
+
+.affichagePlaces {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+
+.lienPlace {
+  -webkit-box-shadow: 0px 1px 1px solid grey;
+          box-shadow: 0px 1px 1px solid grey;
+  margin: 0px 5px;
+  background-color: #E4E4E4;
+  color: black;
+  border: black;
+}
+
+.lienPlace:hover {
+  background-color: #1B1E22;
+  color: white;
 }
 /*# sourceMappingURL=style.css.map */

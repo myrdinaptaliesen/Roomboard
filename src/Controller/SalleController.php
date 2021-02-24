@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Salle;
 use App\Form\SalleType;
+use App\Repository\PlaceRepository;
 use App\Repository\SalleRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/salle")
@@ -18,10 +19,11 @@ class SalleController extends AbstractController
     /**
      * @Route("/", name="salle_index", methods={"GET"})
      */
-    public function index(SalleRepository $salleRepository): Response
+    public function index(SalleRepository $salleRepository, PlaceRepository $placeRepository): Response
     {
         return $this->render('salle/index.html.twig', [
             'salles' => $salleRepository->findAll(),
+            'places' => $placeRepository->findAll(),
         ]);
     }
 

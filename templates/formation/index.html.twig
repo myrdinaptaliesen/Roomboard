@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formation index{% endblock %}
+{% block title %}Les Différentes Formations - Intrarinfo{% endblock %}
 
 {% block body %}
+<h1>Les différentes Formations du Centre</h1>
+
 <a class="large btn btn-outline-dark" href="{{ path('formation_new') }}">Ajouter une nouvelle formation</a>
+
 <table class="table table-sm table-hover">
     <div class="table-responsive">
 {% for formation in formations %}
@@ -13,7 +16,7 @@
             <tr>
                 <td>{{ formation.intituleFormation }}</th>
                 <td>{{ formation.type.nomType}}</th>
-                <td><a class="btn btn-outline-dark" href="{{ path('formation_edit', {'id': formation.id}) }}"><i
+                <td><a class="btn lienPlace" href="{{ path('formation_edit', {'id': formation.id}) }}"><i
                             class="bi bi-brush"></i></a></th>
             </tr>
 
