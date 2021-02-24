@@ -1,0 +1,5 @@
+{% for place in places %}
+    {% if place.Salle = salle.id  %}
+        <a href="{{ path('place_edit', {'id': place.id}) }}" class="lienPlace">{{ place.nomPlace }}</a>                        
+    {% endif %}    
+{% endfor %}

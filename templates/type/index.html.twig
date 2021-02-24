@@ -1,26 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Type index{% endblock %}
+{% block title %}Différents Types de formations - Intrarinfo{% endblock %}
 
 {% block body %}
-    <h1>Type index</h1>
+    <h1>Les Différents Types de formations</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>NomType</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for type in types %}
             <tr>
-                <td>{{ type.id }}</td>
                 <td>{{ type.nomType }}</td>
                 <td>
-                    <a href="{{ path('type_show', {'id': type.id}) }}">show</a>
-                    <a href="{{ path('type_edit', {'id': type.id}) }}">edit</a>
+                    <a class="lienPlace btn" href="{{ path('type_edit', {'id': type.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +28,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('type_new') }}">Create new</a>
+    <a class="btn btn-outline-dark" href="{{ path('type_new') }}">Ajouter un nouveau Type</a>
 {% endblock %}

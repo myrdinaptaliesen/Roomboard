@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Place;
 use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\SalleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/place")
@@ -90,5 +91,20 @@ class PlaceController extends AbstractController
         }
 
         return $this->redirectToRoute('place_index');
+    }
+
+    public function comptePlaces(PlaceRepository $placeRepository, SalleRepository $salleRepository): Response
+    {
+        return $this->render('place/_comptePlaces.html.twig', [
+            'places' => $placeRepository->findAll(),
+            'salles' => $salleRepository->findAll(),
+        ]);
+    }
+    public function affichagePlaces(PlaceRepository $placeRepository, SalleRepository $salleRepository): Response
+    {
+        return $this->render('place/_affichagePlaces.html.twig', [
+            'places' => $placeRepository->findAll(),
+            'salles' => $salleRepository->findAll(),
+        ]);
     }
 }

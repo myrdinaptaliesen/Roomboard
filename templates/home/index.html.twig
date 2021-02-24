@@ -1,24 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Page d'Accueil - Intrarinfo{% endblock %}
 
 {% block body %}
-  
+<div>
+  <p>Objectifs et difficultés:</p>
+  <ul>
+    <li>Cliquer sur une ligne de la chronologie doit renvoyer vers un <b>formulaire en pop-up</b>.</li>
+    <li>Le lien doit renvoyer vers un <b>nouveau créneau.</b></li>
+    <li>Le nouveau créneau doit être affilié à la <b>ligne correspondante.</b></li>
+    <li><b>L'envergure de la chronologie</b> doit être adaptée et non soumise aux créneaux enregistrés (Défilement horizontal ?).</li>
+    <li>Possibilité de <b>mettre en valeur certaines dates</b> ? Par exemple la date du jour ?</li>
+  </ul>
+</div>
+
     {% for salle in salles %}
     <script type="text/javascript">
+      //Pour chaque salle on crèe une chronologie ("timeline")
       google.charts.load("current", {packages:["timeline"], 'language': 'fr'});
       google.charts.setOnLoadCallback(drawChart);
   
-  
+
         function drawChart() {
     
-          var container = document.getElementById('{{ salle.nomSalle }}');
+          var container = document.getElementById('salle{{ salle.id }}');
           var chart = new google.visualization.Timeline(container);
           var dataTable = new google.visualization.DataTable();
+          //Le 1er élément sera le nom de la place
           dataTable.addColumn({ type: 'string', id: 'Place' });
+          //Le nom du stagiaire concerné est affiché sur la bande du créneau
           dataTable.addColumn({ type: 'string', id: 'Stagiaire' });
+          //Date de début du créneau
           dataTable.addColumn({ type: 'date', id: 'Début' });
+          //Date de fin du créneau
           dataTable.addColumn({ type: 'date', id: 'Fin' });
+          //On injecte les données
           dataTable.addRows([
 
 
@@ -29,7 +45,7 @@
             {% for creneau in creneaux %}
               {% if creneau.place == stagiaire.place %}
                 {% if salle.id == stagiaire.place.salle.id %}
-                  [ '<a class="btn">{{ stagiaire.place.nomPlace }}</a>', '{{ stagiaire.prenomStagiaire }} {{ stagiaire.nomStagiaire }}', 
+                  [ '{{ stagiaire.place.nomPlace }}', '{{ stagiaire.prenomStagiaire }} {{ stagiaire.nomStagiaire }}', 
                   new Date({{ creneau.debutCreneau|date('Y, m, d') }}), new Date({{ creneau.finCreneau|date('Y, m, d') }}) ],
                 {% endif %}
 
@@ -42,6 +58,7 @@
   
           ]);
           
+          //Couleurs des créneaux
           var options = {
             colors: [
             {% for creneau in creneaux %}
@@ -50,19 +67,59 @@
             ],
           };
 
-      
+          //On précise qu'on active les options : ",options", et on dessine le tableau.
           chart.draw(dataTable, options);
         }
+
+
+
+
+
+
+          
+        
+
   
   
     </script>
     {% endfor %}
+    <script>
+      $(document).ready(function(){
+        setTimeout(function(){ 
+
+          {% set count = 0 %}
+
+          {% for place in places %}
+            {% if place.id != 0 %}
+              {% set count = count + 1 %}
+            {% endif %}
+          {% endfor %}
+
+
+          {% for salle in salles %}
+
+            $('#salle{{ salle.id }} rect').click(function(){
+              alert("{{ salle.nomSalle }}");
+            });
+
+          {% endfor %}
+
+
+
+
+
+
+
+        }, 3000);
+      });
+
+    </script>
 
   
   
 {% for salle in salles %}
   <h3>{{ salle.nomSalle }}</h3>
-  <div id="{{ salle.nomSalle }}" style="height: 300px;"></div>
+  <div id="salle{{ salle.id }}" style="height: 300px;"></div>
 {% endfor %}
 
 
