@@ -87,20 +87,24 @@
       $(document).ready(function(){
         setTimeout(function(){ 
 
-          {% set count = 0 %}
+          
 
+          
+          
+          {% for salle in salles %}
+          {% set count = -1 %}
           {% for place in places %}
-            {% if place.id != 0 %}
-              {% set count = count + 1 %}
+          {% if salle.id == place.salle.id %}
+            {% set count = count + 1 %}
+              truc = $('#salle{{ salle.id }} rect:eq({{count}})');
+              console.log('{{count}}');
+              truc.click(function(){
+                alert("{{ place.nomPlace }}");
+              });
             {% endif %}
           {% endfor %}
+          
 
-
-          {% for salle in salles %}
-
-            $('#salle{{ salle.id }} rect').click(function(){
-              alert("{{ salle.nomSalle }}");
-            });
 
           {% endfor %}
 
