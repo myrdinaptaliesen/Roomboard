@@ -84,40 +84,64 @@
     </script>
     {% endfor %}
     <script>
+      //On charge le document
       $(document).ready(function(){
         setTimeout(function(){ 
 
-          
 
-          
-          
+          //Pour chaque salle                   
           {% for salle in salles %}
-          {% set count = -1 %}
-          {% for place in places %}
-          {% if salle.id == place.salle.id %}
-            {% set count = count + 1 %}
-              truc = $('#salle{{ salle.id }} rect:eq({{count}})');
-              console.log('{{count}}');
-              truc.click(function(){
-                alert("{{ place.nomPlace }}");
-              });
-            {% endif %}
-          {% endfor %}
-          
+            //Dans un tableau on commence à compter à 0
+            {% set count = -1 %}
+              //Pour chaque place dans la salle
+              {% for place in places %}
+                //Si la la place est bien dans la salle
+                {% if salle.id == place.salle.id %}
+                  {% set count = count + 1 %}
+                    //On différencie chaque ligne du tableau
+                    truc = $('#salle{{ salle.id }} rect:eq({{count}})');
+                    truc.attr('data-toggle', 'modal');
+                    truc.attr('data-target', 'modal{{ place.id }}');
+                    truc.attr('type', 'button');
+                    truc.addClass('btn');
+                    truc.click(function(){
+                      $('#modal{{ place.id }}').modal("show");
+                    });
+                {% endif %}
+              {% endfor %}
+            
 
 
           {% endfor %}
-
-
-
-
-
-
 
         }, 3000);
       });
 
     </script>
+
+    {% for place in places %}
+      <!-- Vertically centered modal -->
+      <div class="modal fade" id="modal{{ place.id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{ place.nomPlace }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
 
   
   
