@@ -3,9 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Creneau;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Formation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
@@ -24,7 +25,7 @@ class NouveauCreneauType extends AbstractType
                 'class' => Formation::class,
                 'choice_label' => 'intituleFormation',
                 ])
-            ->add('Place')
+            // ->add('Place')
         ;
     }
 

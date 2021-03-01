@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Creneau;
+use App\Form\CreneauType;
 use App\Form\NouveauCreneauType;
 use App\Repository\PlaceRepository;
 use App\Repository\SalleRepository;
@@ -17,24 +18,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", methods={"GET","POST"})
      */
-    public function index(FormationRepository $formationRepository, SalleRepository $salleRepository, StagiaireRepository $stagiaireRepository, PlaceRepository $placeRepository, CreneauRepository $creneauRepository): Response
-    {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'formations' => $formationRepository->findAll(),
-            'salles' => $salleRepository->findAll(),
-            'stagiaires' => $stagiaireRepository->findAll(),
-            'places' => $placeRepository->findAll(),
-            'creneaux' => $creneauRepository->findAll(),
-        ]);
-    }
-
-    /**
-    * @Route("creneau/{id}/nouveau", name="nouveau-creneau", methods={"GET","POST"})) 
-    */
-    public function nouveauCreneau(Request $request): Response
+    public function index(FormationRepository $formationRepository, SalleRepository $salleRepository, StagiaireRepository $stagiaireRepository, PlaceRepository $placeRepository, CreneauRepository $creneauRepository,Request $request): Response
     {
         $creneau = new Creneau();
         $form = $this->createForm(NouveauCreneauType::class, $creneau);
@@ -47,10 +33,38 @@ class HomeController extends AbstractController
 
             return $this->redirectToRoute('home');
         }
-
-        return $this->render('home/_nouveauCreneau.html.twig', [
+        return $this->render('home/index.html.twig', [
+            'controller_name' => 'HomeController',
+            'formations' => $formationRepository->findAll(),
+            'salles' => $salleRepository->findAll(),
+            'stagiaires' => $stagiaireRepository->findAll(),
+            'places' => $placeRepository->findAll(),
+            'creneaux' => $creneauRepository->findAll(),
             'creneau' => $creneau,
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+    * @Route("creneau/{id}/nouveau", name="nouveau-creneau", methods={"GET","POST"})) 
+    */
+    // public function nouveauCreneau(Request $request): Response
+    // {
+    //     $creneau = new Creneau();
+    //     $form = $this->createForm(CreneauType::class, $creneau);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->persist($creneau);
+    //         $entityManager->flush();
+
+    //         return $this->redirectToRoute('home');
+    //     }
+
+    //     return $this->render('home/index.html.twig', [
+    //         'creneau' => $creneau,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 }
