@@ -1,5 +1,8 @@
 {{ form_start(form) }}
-    {# {{ form_widget(form) }} #}
+
+        {{ form_row(form.debutCreneau, { 'label': 'Début du créneau' }) }}
+        {{ form_row(form.finCreneau, { 'label': 'Fin du créneau' }) }}
+        {{ form_row(form.Formation, { 'label': 'Formation' }) }}
     <button class="btn">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
 
