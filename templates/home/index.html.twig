@@ -16,10 +16,22 @@
 
     {% for salle in salles %}
     <script type="text/javascript">
+
+
       //Pour chaque salle on crèe une chronologie ("timeline")
       google.charts.load("current", {packages:["timeline"], 'language': 'fr'});
       google.charts.setOnLoadCallback(drawChart);
-  
+      
+      //On utilise moment.js pour définir l'envergure de la chronologie
+      var debutChrono = moment();
+        debutChrono.subtract(1, 'months');
+        debutChrono.format('Y, M, D');
+
+      var finChrono = moment();
+        finChrono.add(1, 'months');
+        finChrono.format('Y, M, D');
+
+
 
         function drawChart() {
     
@@ -38,6 +50,7 @@
           dataTable.addRows([
 
 
+
           {% for stagiaire in stagiaires %}
 
 
@@ -54,7 +67,7 @@
             {% endfor %}
           {% endfor %}
 
-  
+          ["\0", "Aujourd'hui", new Date(), new Date() ],
   
           ]);
           
@@ -65,19 +78,18 @@
               '{{ creneau.formation.couleurFormation }}',
             {% endfor %}
             ],
+            //On fixe le début et la fin de la chronologie en utilisant les variables définie grâce à moment.js
+            hAxis: {
+              minValue: new Date(debutChrono),  
+              maxValue: new Date(finChrono)
+            },
           };
 
           //On précise qu'on active les options : ",options", et on dessine le tableau.
           chart.draw(dataTable, options);
+
+
         }
-
-
-
-
-
-
-          
-        
 
   
   
@@ -86,6 +98,8 @@
     <script>
       //On charge le document
       $(document).ready(function(){
+
+
         setTimeout(function(){ 
 
 
