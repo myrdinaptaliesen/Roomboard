@@ -22,15 +22,14 @@
       google.charts.load("current", {packages:["timeline"], 'language': 'fr'});
       google.charts.setOnLoadCallback(drawChart);
       
-      //On utilise Luxon pour définir les l'envergure de la chronologie
-      var DateTime = luxon.DateTime;
-      var debutChrono = DateTime.now();
-        debutChrono.minus({ months: 2 });
-        debutChrono.toISODate().setLocale('fr').toFormat('yy, LL, dd');
+      //On utilise moment.js pour définir l'envergure de la chronologie
+      var debutChrono = moment();
+        debutChrono.subtract(1, 'months');
+        debutChrono.format('Y, M, D');
 
-      var finChrono = DateTime.now();
-        finChrono.plus({ months: 2 });
-        finChrono.toISODate().setLocale('fr').toFormat('yy, LL, dd');
+      var finChrono = moment();
+        finChrono.add(1, 'months');
+        finChrono.format('Y, M, D');
 
 
 
@@ -79,30 +78,17 @@
               '{{ creneau.formation.couleurFormation }}',
             {% endfor %}
             ],
-            //On fixe le début et la fin de la chronologie en utilisant les variables définie grâce à Luxon
-            //hAxis: {
-            //  minValue: new Date(debutChrono),  
-            //  maxValue: new Date(finChrono)
-            //},
+            //On fixe le début et la fin de la chronologie en utilisant les variables définie grâce à moment.js
+            hAxis: {
+              minValue: new Date(debutChrono),  
+              maxValue: new Date(finChrono)
+            },
           };
 
           //On précise qu'on active les options : ",options", et on dessine le tableau.
           chart.draw(dataTable, options);
 
-          // ligneJour('salle{{ salle.id }}');
 
-          // google.visualization.events.addListener(chart, 'onmouseover', function(obj) {
-  
-          //   //if the moused over object was our reference line, we should not display a tooltip
-          //   if(obj.row == 0){
-          //     $('.google-visualization-tooltip').css('display','none');
-          //   }
-          //   motJour('salle{{ salle.id }}');
-          // });
-          
-          // google.visualization.events.addListener(chart, 'onmouseout', function(obj){
-          //   motJour('salle{{ salle.id }}');
-          // });
         }
 
   
@@ -113,28 +99,8 @@
       //On charge le document
       $(document).ready(function(){
 
-        // //Tracer une ligne pour marquer la date du jour
-        // function ligneJour(div) {
-        //   //On cherche la hauteur de la chronologie
-        //   var height;
-        //   $('#'+ div +' rect').each(function(index){
-        //     var x = parseFloat($(this).attr('x'));
-        //     var y = parseFloat($(this).attr('y'));
-
-        //     if(x == 0 && y == 0) {
-        //       height = parseFloat($(this).attr('height'))
-        //     }
-        //   })
-        //   var motJour = $('#'+ div +' text:contains("Aujourd\'hui")');
-          
-
-        //   motJour.prev().first().attr('height', height + 'px').attr('width', '1px').attr('y', '0');
-
-        // }
 
         setTimeout(function(){ 
-
-
 
 
           //Pour chaque salle                   
