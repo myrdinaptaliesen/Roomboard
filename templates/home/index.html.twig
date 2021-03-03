@@ -9,8 +9,8 @@
     <li>Cliquer sur une ligne de la chronologie doit renvoyer vers un <b>formulaire en pop-up</b>.</li>
     <li>Le lien doit renvoyer vers un <b>nouveau créneau.</b></li>
     <li>Le nouveau créneau doit être affilié à la <b>ligne correspondante.</b></li>
-    <li><b>L'envergure de la chronologie</b> doit être adaptée et non soumise aux créneaux enregistrés (Défilement horizontal ?).</li>
-    <li>Possibilité de <b>mettre en valeur certaines dates</b> ? Par exemple la date du jour ?</li>
+    <li><b>L'envergure de la chronologie</b> doit être adaptée et non soumise aux créneaux enregistrés (Défilement horizontal ?).(en cours)</li>
+    <li>Possibilité de <b>mettre en valeur certaines dates</b> ? Par exemple la date du jour ? (valide)</li>
   </ul>
 </div>
 
@@ -24,11 +24,11 @@
       
       //On utilise moment.js pour définir l'envergure de la chronologie
       var debutChrono = moment();
-        debutChrono.subtract(1, 'months');
+        debutChrono.subtract(2, 'months');
         debutChrono.format('Y, M, D');
 
       var finChrono = moment();
-        finChrono.add(1, 'months');
+        finChrono.add(2, 'months');
         finChrono.format('Y, M, D');
 
 
@@ -71,8 +71,16 @@
   
           ]);
           
-          //Couleurs des créneaux
+          // Create a range slider, passing some options
+        var envergure = new google.visualization.ControlWrapper({
+          'controlType': 'ChartRangeFilter',
+          'state': {"range": {"start": debutChrono, "end": finChrono} }
+
+        });
+
+          
           var options = {
+            //Couleurs des créneaux
             colors: [
             {% for creneau in creneaux %}
               '{{ creneau.formation.couleurFormation }}',
@@ -86,7 +94,9 @@
           };
 
           //On précise qu'on active les options : ",options", et on dessine le tableau.
-          chart.draw(dataTable, options);
+          chart.draw(dataTable, options, envergure, {
+            width: 2000
+          });
 
 
         }
@@ -147,11 +157,17 @@
               </button>
             </div>
             <div class="modal-body">
-              {{ include('home/_nouveauCreneau.html.twig') }} 
+              {{ form_start(form) }}
+                {{ form_widget(form.debutCreneau, { 'label': 'Début du créneau' }) }}
+                {{ form_widget(form.finCreneau, { 'label': 'Fin du créneau' }) }}
+                {{ form_widget(form.Formation, { 'label': 'Formation' }) }} 
+              
+              {# {{ include('creneau/_form.html.twig') }}  #}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
               <button type="button" class="btn btn-primary">Enregistrer</button>
+              {{ form_end(form) }}
             </div>
           </div>
         </div>
@@ -160,11 +176,12 @@
 
 
   
-  
-{% for salle in salles %}
+<div class="chronos">
+  {% for salle in salles %}
   <h3>{{ salle.nomSalle }}</h3>
-  <div id="salle{{ salle.id }}" style="height: 300px;"></div>
-{% endfor %}
+  <div class="chrono" id="salle{{ salle.id }}" style="height: 300px;"></div>
+  {% endfor %}
+</div>
 
 
 {% endblock %}
